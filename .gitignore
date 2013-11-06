@@ -1,0 +1,24 @@
+# Ignore Intellij IDEA files
+/.idea
+/*.iml
+
+# Ignore Eclipse IDE files
+/.project
+/.classpath
+/.settings
+
+# Ignore build artifacts
+/target
+/target-eclipse
+
+/.gradle
+/build.gradle
+/plugin.xml
+/content-repository
+/0
+
+*.zip
+devDb.*
+tomcat.*
+stacktrace.log
+.DS_Store
