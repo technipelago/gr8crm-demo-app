@@ -28,7 +28,6 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        compile 'org.apache.poi:poi:3.8'
     }
 
     plugins {
