@@ -1,5 +1,5 @@
-Hej ${person.firstName},
+Hi ${person.firstName},
 
-Med vänlig hälsning
+Regards
 
 /${user.name}

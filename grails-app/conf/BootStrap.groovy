@@ -12,7 +12,6 @@ class BootStrap {
     def crmPluginService
     def crmCoreService
     def crmSecurityService
-    def crmFeatureService
     def navigationService
     def crmContentService
     def crmContactService
@@ -20,17 +19,15 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        crmFeatureService.removeApplicationFeature("register")
-
-        // Main horizontal menu
+        // Add some items to the main horizontal menu
         navigationService.registerItem('main', [controller: 'crmTask', action: 'index', title: 'crmTask.index.label', order: 20])
         navigationService.registerItem('main', [controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 30])
         navigationService.registerItem('main', [controller: 'crmFolder', action: 'list', title: 'crmContent.index.label', order: 80])
-
         navigationService.updated()
 
+        // Add a tab in the contact screen to list all tasks (pending and completed) for the contact.
         crmPluginService.registerView('crmContact', 'show', 'tabs',
-                [id: "tasks", index: 300, permission: "crmTask:show", label: "Händelser", template: '/crmTask/list', plugin: "crm-task-ui", model: {
+                [id: "tasks", index: 300, permission: "crmTask:show", label: "Tasks", template: '/crmTask/list', plugin: "crm-task-ui", model: {
                     def result = CrmTask.createCriteria().list([sort: 'startTime', order: 'asc']) {
                         eq('ref', crmCoreService.getReferenceIdentifier(crmContact))
                     }
@@ -38,6 +35,8 @@ class BootStrap {
                             result: result, totalCount: result.totalCount]
                 }]
         )
+
+        // Load some demo data first time we run.
         if (!crmSecurityService.getUser("admin")) {
             loadData(servletContext.getAttribute(ApplicationAttributes.APPLICATION_CONTEXT))
         }
@@ -48,22 +47,28 @@ class BootStrap {
 
     private void loadData(ctx) {
         // Create a user.
-        def admin = crmSecurityService.createUser([username: "admin", password: "admin", email: "info@gr8crm.com", name: "Systemadministratör", postalCode: "12345", enabled: true])
+        def admin = crmSecurityService.createUser([username: "admin", password: "admin", email: "info@gr8crm.com", name: "Administrator", postalCode: "12345", enabled: true])
         def tenant
 
+        // The admin user can do anything.
         crmSecurityService.addPermissionAlias("permission.all", ["*:*"])
 
-        // Create admin's tenant.
+        // Create admin's account and one tenant.
         crmSecurityService.runAs(admin.username) {
+            // Create an account
             def account = crmAccountService.createAccount([status: "active"],
                     [crmAdmin:5, crmUser: 5, crmContact:1, crmContent:5, crmTask: 1, crmTenant:2])
+            // Create a tenant to hold the demo data.
             tenant = crmSecurityService.createTenant(account, "Demo") // tenant #1
+            // Initialize the tenant.
             TenantUtils.withTenant(tenant.id) {
                 crmSecurityService.addPermissionToRole("permission.all", "admin")
-                crmContentService.createFolder(null, "email", "E-postmallar")
-                def web = crmContentService.createFolder(null, "web", "Hemsidans uppbyggnad", "", "")
-                crmContentService.createFolder(web, "pages", "Hela webbsidor", "", "")
-                crmContentService.createFolder(web, "parts", "Texter som visas på webbsidor", "", "")
+                // Add some common content folders.
+                crmContentService.createFolder(null, "email", "Email templates")
+                def web = crmContentService.createFolder(null, "web", "Web site components", "", "")
+                crmContentService.createFolder(web, "pages", "Web pages", "", "")
+                crmContentService.createFolder(web, "parts", "Web page fragments", "", "")
+                // Load demo data.
                 loadTextTemplates()
                 loadTasks()
             }
@@ -107,15 +112,15 @@ class BootStrap {
     }
 
     private void loadTasks() {
-        def type = crmTaskService.createTaskType(name: "Utgående samtal", param: "outbound").save(failOnError: true, flush: true)
+        def type = crmTaskService.createTaskType(name: "Outbound telephone call", param: "outbound").save(failOnError: true, flush: true)
         def companies = []
         companies << crmContactService.createCompany(name: "BMW", true)
-        companies << crmContactService.createCompany(name: "Nacka kommun", true)
-        companies << crmContactService.createCompany(name: "Bilia", true)
-        companies << crmContactService.createCompany(name: "Haninge kommun", true)
-        companies << crmContactService.createCompany(name: "Bosses Bygg", true)
-        def firstNames = ['Lars', 'Göran', 'Anna', 'Ulrika', 'Peter']
-        def lastNames = ['Bengtsson', 'Åkesson', 'Dahlman', 'Rosenkvist']
+        companies << crmContactService.createCompany(name: "ACME Inc.", true)
+        companies << crmContactService.createCompany(name: "IKEA", true)
+        companies << crmContactService.createCompany(name: "Volvo", true)
+        companies << crmContactService.createCompany(name: "Google", true)
+        def firstNames = ['Larry', 'Joe', 'Anna', 'Denise', 'Peter']
+        def lastNames = ['Ericsson', 'Stephenson', 'Freeman', 'Young']
         def random = new Random()
         def cal = Calendar.getInstance()
         cal.clearTime()
@@ -125,7 +130,7 @@ class BootStrap {
                 def contact = crmContactService.createPerson(parent: companies[random.nextInt(companies.size())], firstName: firstName, lastName: lastName, telephone: "08-${System.currentTimeMillis().toString().substring(6)}").save(failOnError: true, flush: true)
                 def task = crmTaskService.createTask(name: type.name, type: type,
                         startTime: cal.getTime(), duration: 15,
-                        reference: contact, hidden: true, username: 'lars')
+                        reference: contact, hidden: true, username: 'admin')
                 task.save(failOnError: true, flush: true)
                 cal.add(Calendar.MINUTE, 15)
             }

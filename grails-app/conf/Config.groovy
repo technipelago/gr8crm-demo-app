@@ -83,7 +83,7 @@ crm.content.include.tenant = 1L
 
 crm.task.attenders.enabled = false
 
-recentDomain.autoscan.actions = ['crmContact:show', 'crmSalesProject:show', 'crmCall:show']
+recentDomain.autoscan.actions = ['crmContact:show']
 
 grails.plugin.databasemigration.changelogLocation = "grails-app/migrations"
 grails.plugin.databasemigration.changelogFileName = "changelog.groovy"
@@ -93,14 +93,11 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 environments {
     development {
         grails {
-            //serverURL = "http://localhost:8080/gr8crm"
             mail {
-                host = "smtprelay1.telia.com"
-                port = 25
-                //host = "localhost"
-                //port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+                host = "localhost"
+                port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
             }
-            mail.default.from = "goran@technipelago.se"
+            mail.default.from = "info@gr8crm.com"
             logging.jul.usebridge = true
         }
         crm {
@@ -113,14 +110,14 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        app.context = "/crm"
-        grails.serverURL = "http://www.technipelago.se/crm"
+        app.context = "/demo"
+        grails.serverURL = "http://www.gr8crm.com/demo"
         // Resources moved out of Tomcat install and served by Apache HTTPD.
-        grails.resources.work.dir = "/home/www/crm/static-resources"
+        grails.resources.work.dir = "/home/gr8crm/demo/static-resources"
         crm {
             content {
                 file {
-                    path = "/home/www/crm/content-repository"
+                    path = "/home/gr8crm/demo/content-repository"
                 }
             }
         }
