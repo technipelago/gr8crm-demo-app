@@ -44,14 +44,15 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.6"
 
         compile ':cache:1.1.1'
+        compile ":greenmail:1.3.4"
+        runtime ":mail:1.0.1"
+
+        runtime ":decorator-markdown:0.2"
 
         runtime "grails.crm:crm-security-shiro:latest.integration"
         runtime "grails.crm:crm-i18n:latest.integration"
         runtime "grails.crm:crm-contact-lite:latest.integration"
         runtime "grails.crm:crm-task-ui:latest.integration"
         runtime "grails.crm:crm-content-ui:latest.integration"
-
-        runtime ":decorator-markdown:0.2"
-        runtime ":mail:1.0.1"
     }
 }
