@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<h1>GR8CRM <small>Great CRM Components at your Service</small></h1>
+<h1>GR8CRM <small>Great CRM plugins at your service</small></h1>
+
+<p>Please login and start exploring...</p>
 
 </body>
 </html>
