@@ -10,6 +10,8 @@ The application handles
 
 The GR8 CRM "Ecosystem" currently contains over 40 Grails plugins. Some of them are listed below.
 
+Main contributors to GR8 CRM plugins are https://github.com/technipelago and https://github.com/goeh
+
 | Plugin Name                  | Description
 | ---------------------------- | ------------------------------------------------
 | crm-blog+crm-blog-ui         | Blog presentation and authoring (-ui)
