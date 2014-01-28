@@ -1,4 +1,4 @@
-# GR8 CRM - Demo
+# GR8 CRM - Demo Application
 
 This Grails application uses GR8 CRM plugins to create a simple
 Contact Management and To-Do application.
@@ -12,10 +12,12 @@ The GR8 CRM "Ecosystem" currently contains over 40 Grails plugins. Some of them 
 
 Main contributors to GR8 CRM plugins are https://github.com/technipelago and https://github.com/goeh
 
+The company Technipelago AB based in Stockholm, Sweden has several GR8 CRM applications in production.
+
 | Plugin Name                  | Description
 | ---------------------------- | ------------------------------------------------
 | crm-blog+crm-blog-ui         | Blog presentation and authoring (-ui)
-| crm-campaign+crm-campaign-ui | Campaign execution and management (-ui)
+| crm-campaign+crm-campaign-ui | Marketing campaign execution and management (-ui)
 | crm-contact+crm-contact-lite | Contact Management (companies and individuals)
 | crm-content+crm-content-ui   | Content Management and authoring (-ui)
 | crm-core                     | Core features like multi tenancy (used by most other plugins)
