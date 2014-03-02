@@ -12,7 +12,7 @@ The GR8 CRM "Ecosystem" currently contains over 40 Grails plugins. Some of them 
 
 Main contributors to GR8 CRM plugins are https://github.com/technipelago and https://github.com/goeh
 
-The company Technipelago AB based in Stockholm, Sweden has several GR8 CRM applications in production.
+The company [Technipelago AB](http://www.technipelago.se/ "Technipelago AB") based in Stockholm, Sweden has several GR8 CRM applications in production.
 
 | Plugin Name                  | Description
 | ---------------------------- | ------------------------------------------------
@@ -36,3 +36,31 @@ The company Technipelago AB based in Stockholm, Sweden has several GR8 CRM appli
 | crm-tags                     | Tag any domain instance
 | crm-task+crm-task-ui         | Task/Calendar Management
 | crm-ui-bootstrap             | Twitter Bootstrap user interface (used by most -ui plugins)
+
+## Running the demo application
+
+To test this demo application, you basically just have to clone the repository and start the application with `grails run-app`.
+
+. Make sure you have Grails 2.2.4 installed
+. Clone this repository
+. cd gr8crm-demo-app
+. grails compile
+. grails run-app
+
+## Using GR8CRM plugins in your own Grails application
+
+The GR8CRM plugins are not yet available in Grails Central repository. The reason is we don't feel they are polished enough
+to be officially released (yet). We plan to release most of the plugins during spring/summer 2014 but we can't promise anything.
+Until all plugins are available in Grails Central you have to include two custom *technipelago* repositories in your BuildConfig.groovy.
+
+    repositories {
+        inherits true
+
+        grailsHome()
+        grailsCentral()
+
+        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
+        mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
+
+        mavenCentral()
+    }
