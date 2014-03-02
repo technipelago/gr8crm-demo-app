@@ -41,17 +41,17 @@ The company [Technipelago AB](http://www.technipelago.se/ "Technipelago AB") bas
 
 To test this demo application, you basically just have to clone the repository and start the application with `grails run-app`.
 
-. Make sure you have Grails 2.2.4 installed
-. Clone this repository
-. cd gr8crm-demo-app
-. grails compile
-. grails run-app
+1. Make sure you have Grails 2.2.4 installed
+2. Clone this repository
+3. cd gr8crm-demo-app
+4. grails compile
+5. grails run-app
 
 ## Using GR8CRM plugins in your own Grails application
 
 The GR8CRM plugins are not yet available in Grails Central repository. The reason is we don't feel they are polished enough
 to be officially released (yet). We plan to release most of the plugins during spring/summer 2014 but we can't promise anything.
-Until all plugins are available in Grails Central you have to include two custom *technipelago* repositories in your BuildConfig.groovy.
+Until all plugins are available in Grails Central you have to include two custom **Technipelago** repositories in your BuildConfig.groovy.
 
     repositories {
         inherits true
