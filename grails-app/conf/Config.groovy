@@ -12,7 +12,7 @@
 // }
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
-grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
+grails.mime.file.extensions = false // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [
         all: '*/*',
@@ -34,6 +34,8 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.adhoc.includes = ['/images/**', '/css/**', '/js/**', '/plugins/**']
+grails.resources.adhoc.excludes = ['/WEB-INF/**']
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -67,8 +69,8 @@ crm.feature.crmProduct.required = true
 crm.feature.crmTelemarketing.required = true
 crm.feature.crmContent.required = true
 
-crm.theme.logo.default = "/images/gr8crm-logo-small.png"
 crm.theme.logo.small = "/images/gr8crm-logo-small.png"
+crm.theme.logo.medium = "/images/gr8crm-logo-small.png"
 crm.theme.logo.large = "/images/gr8crm-logo.png"
 
 crm.currency.default = 'SEK'
@@ -80,6 +82,11 @@ selection.uri.parameter = "q"
 selection.uri.encoding = "base64"
 
 crm.content.include.tenant = 1L
+crm.content.cms.layout = 'web'
+crm.content.cms.path = '/web/pages/'
+crm.content.cms.extensions = ['', 'html']
+
+crm.content.editor.css = [dir: 'less', file: 'gr8crm.less.css']
 
 crm.task.attenders.enabled = false
 
