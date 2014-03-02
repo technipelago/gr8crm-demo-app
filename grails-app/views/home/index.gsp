@@ -8,7 +8,7 @@
 
 <h1>GR8CRM <small>Great CRM plugins at your service</small></h1>
 
-<p>Please login and start exploring...</p>
+<p>Please login with (admin/admin) and start exploring...</p>
 
 </body>
 </html>
