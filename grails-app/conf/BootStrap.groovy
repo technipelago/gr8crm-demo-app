@@ -78,7 +78,7 @@ class BootStrap {
     private void loadTextTemplates() {
         List<File> templates
         if (grailsApplication.warDeployed) {
-            templates = grailsApplication.mainContext.getResources("**/WEB-INF/templates/freemarker/**".toString())?.toList().collect { it.file }
+            templates = grailsApplication.mainContext.getResources("**/WEB-INF/templates/crm/**".toString())?.toList().collect { it.file }
         } else {
             // Scan all plugins src/templates for text templates.
             def settings = BuildSettingsHolder.settings
@@ -88,7 +88,7 @@ class BootStrap {
             templates = []
             for (dir in dirs) {
                 // Look for FreeMarker templates.
-                def templatePath = new File(dir, "src/templates/freemarker")
+                def templatePath = new File(dir, "src/templates/crm")
                 if (templatePath.exists()) {
                     templatePath.eachFileRecurse(FileType.FILES) { file ->
                         templates << file
@@ -100,7 +100,7 @@ class BootStrap {
         if (templates) {
 			String separator = File.separator
             for (file in templates.findAll { it.file && !it.hidden }) {
-                def path = StringUtils.substringAfter(file.parentFile.toString(), "${separator}templates${separator}freemarker")
+                def path = StringUtils.substringAfter(file.parentFile.toString(), "${separator}templates${separator}crm")
                 def folder = crmContentService.getFolder(path)
                 if (!folder) {
                     folder = crmContentService.createFolders(path)
