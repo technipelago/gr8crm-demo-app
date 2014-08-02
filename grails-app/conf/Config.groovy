@@ -65,6 +65,7 @@ crm.security.controllers.public = ['home', 'crmFileAccess', 'crmPageNotFound']
 
 crm.feature.crmContact.required = true
 crm.feature.crmSales.required = true
+crm.feature.crmTask.required = true
 crm.feature.crmProduct.required = true
 crm.feature.crmTelemarketing.required = true
 crm.feature.crmContent.required = true
@@ -78,8 +79,7 @@ crm.currency.default = 'SEK'
 crm.tag.favorite = "favorite"
 crm.favorite.icon = "icon-star"
 
-selection.uri.parameter = "q"
-selection.uri.encoding = "base64"
+selection.gorm = true
 
 crm.content.include.tenant = 1L
 crm.content.cms.layout = 'web'

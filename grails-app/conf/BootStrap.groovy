@@ -31,7 +31,7 @@ class BootStrap {
                     def result = CrmTask.createCriteria().list([sort: 'startTime', order: 'asc']) {
                         eq('ref', crmCoreService.getReferenceIdentifier(crmContact))
                     }
-                    return [bean: crmContact, reference: crmCoreService.getReferenceIdentifier(crmContact),
+                    return [bean  : crmContact, reference: crmCoreService.getReferenceIdentifier(crmContact),
                             result: result, totalCount: result.totalCount]
                 }]
         )
@@ -57,7 +57,7 @@ class BootStrap {
         crmSecurityService.runAs(admin.username) {
             // Create an account
             def account = crmAccountService.createAccount([status: "active"],
-                    [crmAdmin:5, crmUser: 5, crmContact:1, crmContent:5, crmTask: 1, crmTenant:2])
+                    [crmAdmin: 5, crmUser: 5, crmContact: 1, crmContent: 5, crmTask: 1, crmTenant: 2])
             // Create a tenant to hold the demo data.
             tenant = crmSecurityService.createTenant(account, "Demo") // tenant #1
             // Initialize the tenant.
@@ -78,7 +78,9 @@ class BootStrap {
     private void loadTextTemplates() {
         List<File> templates
         if (grailsApplication.warDeployed) {
-            templates = grailsApplication.mainContext.getResources("**/WEB-INF/templates/crm/**".toString())?.toList().collect { it.file }
+            templates = grailsApplication.mainContext.getResources("**/WEB-INF/templates/crm/**".toString())?.toList().collect {
+                it.file
+            }
         } else {
             // Scan all plugins src/templates for text templates.
             def settings = BuildSettingsHolder.settings
@@ -98,7 +100,7 @@ class BootStrap {
         }
 
         if (templates) {
-			String separator = File.separator
+            String separator = File.separator
             for (file in templates.findAll { it.file && !it.hidden }) {
                 def path = StringUtils.substringAfter(file.parentFile.toString(), "${separator}templates${separator}crm")
                 def folder = crmContentService.getFolder(path)
@@ -113,6 +115,7 @@ class BootStrap {
 
     private void loadTasks() {
         def type = crmTaskService.createTaskType(name: "Outbound telephone call", param: "outbound").save(failOnError: true, flush: true)
+        def company = crmContactService.createRelationType(name: "Company", param: "company").save(failOnError: true)
         def companies = []
         companies << crmContactService.createCompany(name: "BMW", true)
         companies << crmContactService.createCompany(name: "ACME Inc.", true)
@@ -127,12 +130,16 @@ class BootStrap {
         cal.set(Calendar.HOUR_OF_DAY, 9)
         for (firstName in firstNames) {
             for (lastName in lastNames) {
-                def contact = crmContactService.createPerson(parent: companies[random.nextInt(companies.size())], firstName: firstName, lastName: lastName, telephone: "08-${System.currentTimeMillis().toString().substring(6)}").save(failOnError: true, flush: true)
-                def task = crmTaskService.createTask(name: type.name, type: type,
-                        startTime: cal.getTime(), duration: 15,
-                        reference: contact, hidden: true, username: 'admin')
-                task.save(failOnError: true, flush: true)
-                cal.add(Calendar.MINUTE, 15)
+                def contact = crmContactService.createPerson(related: [companies[random.nextInt(companies.size())], company], firstName: firstName, lastName: lastName, telephone: "08-${System.currentTimeMillis().toString().substring(6)}", true)
+                if(contact.hasErrors()) {
+                    throw new RuntimeException("Failed to create contact: ${contact.errors.allErrors}")
+                } else {
+                    def task = crmTaskService.createTask(name: type.name, type: type,
+                            startTime: cal.getTime(), duration: 15,
+                            reference: contact, hidden: true, username: 'admin')
+                    task.save(failOnError: true, flush: true)
+                    cal.add(Calendar.MINUTE, 15)
+                }
             }
         }
     }

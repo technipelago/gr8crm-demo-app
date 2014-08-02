@@ -17,13 +17,7 @@ grails.project.dependency.resolution = {
 
     repositories {
         inherits true
-
-        grailsHome()
         grailsCentral()
-
-        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
-        mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
-
         mavenCentral()
     }
 
@@ -34,25 +28,24 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
         runtime ":hibernate:$grailsVersion"
 
-        runtime ":jquery:1.10.0"
-        runtime ":resources:1.2"
-        runtime ":twitter-bootstrap:2.3.2"
+        compile ":jquery:1.10.2"
+        compile ":resources:1.2.7"
+        compile ":twitter-bootstrap:2.3.2"
 
-        runtime ":less-resources:1.3.3.1"
-        runtime ":zipped-resources:1.0.1"
+        compile ":less-resources:1.3.3.2"
 
-        runtime ":database-migration:1.3.6"
+        compile ":database-migration:1.3.6"
 
         compile ':cache:1.1.1'
         compile ":greenmail:1.3.4"
-        runtime ":mail:1.0.1"
 
-        runtime ":decorator-markdown:0.2"
+        compile ":mail:1.0.7"
+        compile ":decorator-markdown:0.4"
 
-        runtime "grails.crm:crm-security-shiro:latest.integration"
-        runtime "grails.crm:crm-i18n:latest.integration"
-        runtime "grails.crm:crm-contact-lite:latest.integration"
-        runtime "grails.crm:crm-task-ui:latest.integration"
-        runtime "grails.crm:crm-content-ui:latest.integration"
+        compile ":crm-security-shiro:2.0.0"
+        compile ":crm-i18n:2.0.0"
+        compile ":crm-contact-ui:2.0.0"
+        compile ":crm-task-ui:2.0.0"
+        compile ":crm-content-ui:2.0.0"
     }
 }
