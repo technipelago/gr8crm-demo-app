@@ -37,6 +37,12 @@ The company [Technipelago AB](http://www.technipelago.se/ "Technipelago AB") bas
 | crm-task+crm-task-ui         | Task/Calendar Management
 | crm-ui-bootstrap             | Twitter Bootstrap user interface (used by most -ui plugins)
 
+Documentation for each plugin is available on http://gr8crm.github.io
+
+Note that all GR8 CRM plugins are not available in Grails Central Repository yet, but most of them are.
+If you want to use a plugin from the list above that is not yet available, create an issue and I will
+prioritize the polishing and documentation for that plugin and release it as soon as I can.
+
 ## Running the demo application
 
 To test this demo application, you basically just have to clone the repository and start the application with `grails run-app`.
@@ -46,21 +52,3 @@ To test this demo application, you basically just have to clone the repository a
 3. cd gr8crm-demo-app
 4. grails compile
 5. grails run-app
-
-## Using GR8CRM plugins in your own Grails application
-
-The GR8CRM plugins are not yet available in Grails Central repository. The reason is we don't feel they are polished enough
-to be officially released (yet). We plan to release most of the plugins during spring/summer 2014 but we can't promise anything.
-Until all plugins are available in Grails Central you have to include two custom **Technipelago** repositories in your BuildConfig.groovy.
-
-    repositories {
-        inherits true
-
-        grailsHome()
-        grailsCentral()
-
-        mavenRepo "http://labs.technipelago.se/repo/crm-releases-local/"
-        mavenRepo "http://labs.technipelago.se/repo/plugins-releases-local/"
-
-        mavenCentral()
-    }
