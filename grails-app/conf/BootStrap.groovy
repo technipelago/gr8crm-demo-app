@@ -59,7 +59,7 @@ class BootStrap {
             def account = crmAccountService.createAccount([status: "active"],
                     [crmAdmin: 5, crmUser: 5, crmContact: 1, crmContent: 5, crmTask: 1, crmTenant: 2])
             // Create a tenant to hold the website data.
-            tenant = crmSecurityService.createTenant(account, "Wiki") // tenant #1
+            tenant = crmSecurityService.createTenant(account, "Website") // tenant #1
             // Initialize the first tenant.
             TenantUtils.withTenant(tenant.id) {
                 crmSecurityService.addPermissionToRole("permission.all", "admin")
