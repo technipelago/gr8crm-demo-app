@@ -58,19 +58,25 @@ class BootStrap {
             // Create an account
             def account = crmAccountService.createAccount([status: "active"],
                     [crmAdmin: 5, crmUser: 5, crmContact: 1, crmContent: 5, crmTask: 1, crmTenant: 2])
+            // Create a tenant to hold the website data.
+            tenant = crmSecurityService.createTenant(account, "Wiki") // tenant #1
+            // Initialize the first tenant.
+            TenantUtils.withTenant(tenant.id) {
+                crmSecurityService.addPermissionToRole("permission.all", "admin")
+                // Add some common content folders.
+                def web = crmContentService.createFolder(null, "web", "Web", "", "")
+                crmContentService.createFolder(web, "pages", "Web pages", "", "")
+                crmContentService.createFolder(web, "parts", "Web page fragments", "", "")
+                loadTextTemplates() // Load website pages.
+            }
             // Create a tenant to hold the demo data.
-            tenant = crmSecurityService.createTenant(account, "Demo") // tenant #1
-            // Initialize the tenant.
+            tenant = crmSecurityService.createTenant(account, "CRM") // tenant #2
+            // Initialize the second tenant.
             TenantUtils.withTenant(tenant.id) {
                 crmSecurityService.addPermissionToRole("permission.all", "admin")
                 // Add some common content folders.
                 crmContentService.createFolder(null, "email", "Email templates")
-                def web = crmContentService.createFolder(null, "web", "Web site components", "", "")
-                crmContentService.createFolder(web, "pages", "Web pages", "", "")
-                crmContentService.createFolder(web, "parts", "Web page fragments", "", "")
-                // Load demo data.
-                loadTextTemplates()
-                loadTasks()
+                loadTasks() // Load example tasks
             }
         }
     }

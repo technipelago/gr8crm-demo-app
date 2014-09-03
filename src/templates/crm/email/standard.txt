@@ -1,5 +1,0 @@
-Hi ${person.firstName},
-
-Regards
-
-/${user.name}
