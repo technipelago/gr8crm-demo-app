@@ -1,29 +1,29 @@
 import grails.plugins.crm.core.TenantUtils
 import grails.plugins.crm.task.CrmTask
-import grails.util.BuildSettingsHolder
-import groovy.io.FileType
-import org.apache.commons.lang.StringUtils
 import org.codehaus.groovy.grails.commons.ApplicationAttributes
 
 class BootStrap {
 
-    def grailsApplication
     def crmAccountService
     def crmPluginService
     def crmCoreService
     def crmSecurityService
-    def navigationService
+    def grailsNavigation
     def crmContentService
+    def crmContentImportService
     def crmContactService
     def crmTaskService
 
     def init = { servletContext ->
 
         // Add some items to the main horizontal menu
-        navigationService.registerItem('main', [controller: 'crmTask', action: 'index', title: 'crmTask.index.label', order: 20])
-        navigationService.registerItem('main', [controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 30])
-        navigationService.registerItem('main', [controller: 'crmFolder', action: 'list', title: 'crmContent.index.label', order: 80])
-        navigationService.updated()
+        grailsNavigation.registerNavigation({
+            main {
+                crmTask controller: 'crmTask', action: 'index', title: 'crmTask.index.label', order: 20
+                crmCalendar controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 30
+                crmFolder controller: 'crmFolder', action: 'list', title: 'crmContent.index.label', order: 80
+            }
+        });
 
         // Add a tab in the contact screen to list all tasks (pending and completed) for the contact.
         crmPluginService.registerView('crmContact', 'show', 'tabs',
@@ -67,7 +67,7 @@ class BootStrap {
                 def web = crmContentService.createFolder(null, "web", "Web", "", "")
                 crmContentService.createFolder(web, "pages", "Web pages", "", "")
                 crmContentService.createFolder(web, "parts", "Web page fragments", "", "")
-                loadTextTemplates() // Load website pages.
+                crmContentImportService.importFiles("templates/crm", "admin") // Load website pages.
             }
             // Create a tenant to hold the demo data.
             tenant = crmSecurityService.createTenant(account, "CRM") // tenant #2
@@ -77,44 +77,6 @@ class BootStrap {
                 // Add some common content folders.
                 crmContentService.createFolder(null, "email", "Email templates")
                 loadTasks() // Load example tasks
-            }
-        }
-    }
-
-    private void loadTextTemplates() {
-        List<File> templates
-        if (grailsApplication.warDeployed) {
-            templates = grailsApplication.mainContext.getResources("**/WEB-INF/templates/crm/**".toString())?.toList().collect {
-                it.file
-            }
-        } else {
-            // Scan all plugins src/templates for text templates.
-            def settings = BuildSettingsHolder.settings
-            def dirs = settings.getPluginDirectories()
-            // Finally scan the application's src/templates
-            dirs << settings.getBaseDir()
-            templates = []
-            for (dir in dirs) {
-                // Look for FreeMarker templates.
-                def templatePath = new File(dir, "src/templates/crm")
-                if (templatePath.exists()) {
-                    templatePath.eachFileRecurse(FileType.FILES) { file ->
-                        templates << file
-                    }
-                }
-            }
-        }
-
-        if (templates) {
-            String separator = File.separator
-            for (file in templates.findAll { it.file && !it.hidden }) {
-                def path = StringUtils.substringAfter(file.parentFile.toString(), "${separator}templates${separator}crm")
-                def folder = crmContentService.getFolder(path)
-                if (!folder) {
-                    folder = crmContentService.createFolders(path)
-                }
-                crmContentService.createResource(file, null, folder, [status: "shared", username: 'admin', overwrite: true])
-                log.debug "Loaded template $file into folder /${folder.path.join('/')}"
             }
         }
     }

@@ -6,11 +6,15 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-// uncomment (and adjust settings) to fork the JVM to isolate classpaths
-//grails.project.fork = [
-//   run: [maxMemory:1024, minMemory:64, debug:false, maxPerm:256]
-//]
+grails.project.fork = [
+    //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    test: false,
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]
 
+grails.project.dependency.resolver = "maven"
 grails.project.dependency.resolution = {
     inherits("global") {}
     log "warn"
@@ -20,6 +24,7 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true
         grailsCentral()
+        mavenLocal()
         mavenRepo "http://repo.grails.org/grails/repo/"
         mavenCentral()
     }
@@ -28,27 +33,25 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ":tomcat:$grailsVersion"
-        runtime ":hibernate:$grailsVersion"
+        build ":tomcat:7.0.55"
 
-        compile ":jquery:1.10.2"
-        compile ":resources:1.2.7"
-        compile ":twitter-bootstrap:2.3.2"
+        runtime (":hibernate4:4.3.6.1") {
+            excludes "net.sf.ehcache:ehcache-core"  // remove this when http://jira.grails.org/browse/GPHIB-18 is resolved
+            export = false
+        }
 
-        compile ":less-resources:1.3.3.2"
+        compile ":database-migration:1.4.0"
 
-        compile ":database-migration:1.3.6"
-
-        compile ':cache:1.1.1'
         compile ":greenmail:1.3.4"
 
         compile ":mail:1.0.7"
+        compile ":decorator:1.1"
         compile ":decorator-markdown:0.4"
 
-        compile ":crm-security-shiro:2.0.0"
-        compile ":crm-i18n:2.0.0"
-        compile ":crm-contact-ui:2.0.0"
-        compile ":crm-task-ui:2.0.0"
-        compile ":crm-content-ui:2.0.1"
+        compile ":crm-security-shiro:2.4.0"
+        compile ":crm-i18n:2.4.0"
+        compile ":crm-content-ui:2.4.0"
+        compile ":crm-contact-ui:2.4.0"
+        compile ":crm-task-ui:2.4.0"
     }
 }
