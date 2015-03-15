@@ -47,7 +47,7 @@ prioritize the polishing and documentation for that plugin and release it as soo
 
 To test this demo application, you basically just have to clone the repository and start the application with `grails run-app`.
 
-1. Make sure you have Grails 2.4.4 installed
+1. Make sure you have Grails 2.4.4 installed (we recommend [GVM](http://gvmtool.net) to handle your Grails installations)
 2. Clone this repository
 3. cd gr8crm-demo-app
 4. grails compile
