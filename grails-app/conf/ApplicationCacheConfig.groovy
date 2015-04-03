@@ -12,7 +12,7 @@ config = {
     }
 
     diskStore {
-        path "${System.getProperty('java.io.tmpdir')}gr8crm"
+        path "${System.getProperty('java.io.tmpdir')}/gr8crm"
     }
 
     cache {
