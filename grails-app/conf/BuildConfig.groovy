@@ -33,14 +33,14 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ":tomcat:7.0.55"
+        build ":tomcat:8.0.22"
 
-        runtime (":hibernate4:4.3.6.1") {
+        runtime (":hibernate4:4.3.10") {
             excludes "net.sf.ehcache:ehcache-core"  // remove this when http://jira.grails.org/browse/GPHIB-18 is resolved
             export = false
         }
 
-        compile ":database-migration:1.4.0"
+        compile ":database-migration:1.4.1"
 
         compile ":greenmail:1.3.4"
 
@@ -48,10 +48,14 @@ grails.project.dependency.resolution = {
         compile ":decorator:1.1"
         compile ":decorator-markdown:0.4"
 
-        compile ":crm-security-shiro:2.4.0"
+        compile ":crm-core:2.4.3"
         compile ":crm-i18n:2.4.0"
-        compile ":crm-content-ui:2.4.0"
-        compile ":crm-contact-ui:2.4.0"
-        compile ":crm-task-ui:2.4.0"
+        compile ":crm-ui-bootstrap:2.4.3"
+        compile ":crm-security:2.4.3"
+        compile ":crm-security-shiro:2.4.2"
+        compile ":crm-content:2.4.5"
+        compile ":crm-content-ui:2.4.4"
+        compile ":crm-contact-ui:2.4.3"
+        compile ":crm-task-ui:2.4.3"
     }
 }

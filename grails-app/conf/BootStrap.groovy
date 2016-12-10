@@ -8,22 +8,12 @@ class BootStrap {
     def crmPluginService
     def crmCoreService
     def crmSecurityService
-    def grailsNavigation
     def crmContentService
     def crmContentImportService
     def crmContactService
     def crmTaskService
 
     def init = { servletContext ->
-
-        // Add some items to the main horizontal menu
-        grailsNavigation.registerNavigation({
-            main {
-                crmTask controller: 'crmTask', action: 'index', title: 'crmTask.index.label', order: 20
-                crmCalendar controller: 'crmCalendar', action: 'index', title: 'crmCalendar.index.label', order: 30
-                crmFolder controller: 'crmFolder', action: 'list', title: 'crmContent.index.label', order: 80
-            }
-        });
 
         // Add a tab in the contact screen to list all tasks (pending and completed) for the contact.
         crmPluginService.registerView('crmContact', 'show', 'tabs',
@@ -75,6 +65,7 @@ class BootStrap {
             TenantUtils.withTenant(tenant.id) {
                 crmSecurityService.addPermissionToRole("permission.all", "admin")
                 // Add some common content folders.
+                crmContentService.createFolder(null, "docs", "Documents")
                 crmContentService.createFolder(null, "email", "Email templates")
                 loadTasks() // Load example tasks
             }

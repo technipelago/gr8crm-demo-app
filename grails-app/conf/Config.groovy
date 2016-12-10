@@ -105,8 +105,9 @@ crm.feature.crmTelemarketing.required = true
 crm.feature.crmContent.required = true
 
 crm.theme.logo.small = "/images/gr8crm-logo-small.png"
-crm.theme.logo.medium = "/images/gr8crm-logo-small.png"
-crm.theme.logo.large = "/images/gr8crm-logo.png"
+crm.theme.logo.medium = "/images/gr8crm-logo-medium.png"
+crm.theme.logo.large = "/images/gr8crm-logo-large.png"
+crm.theme.logo.size = 'small'
 
 crm.currency.default = 'SEK'
 
@@ -118,7 +119,7 @@ selection.gorm = true
 crm.content.include.tenant = 1L
 crm.content.cms.layout = 'web'
 crm.content.cms.path = '/web/pages/'
-crm.content.cms.extensions = ['', 'html']
+crm.content.cms.extensions = ['', '.html']
 
 crm.content.editor.css = [dir: 'less', file: 'gr8crm.less.css']
 
