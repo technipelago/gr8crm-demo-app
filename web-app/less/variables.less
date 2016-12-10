@@ -11,21 +11,21 @@
 // -------------------------
 @black:                 #000;
 @grayDarker:            #222;
-@grayDark:              #333;
-@gray:                  #555;
-@grayLight:             #999;
-@grayLighter:           #eee;
+@grayDark:              #444;
+@gray:                  #666;
+@grayLight:             #ccc;
+@grayLighter:           #f0f0f0;
 @white:                 #fff;
 
 
 // Accent colors
 // -------------------------
-@blue:                  #16b3b0;
-@blueDark:              #384599; //darken(@blue, 25%);
-@green:                 #46a546;
-@red:                   #9d261d;
-@yellow:                #ffc40d;
-@orange:                #f89406;
+@blue:                  #002597;
+@blueDark:              darken(@blue, 25%);
+@green:                 #c2d201;
+@red:                   #670202;
+@yellow:                #fcfc33;
+@orange:                #d4550f;
 @pink:                  #c3325f;
 @purple:                #7a43b6;
 
@@ -33,28 +33,28 @@
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
-@textColor:             @grayDark;
+@textColor:             @grayDarker;
 
 
 // Links
 // -------------------------
-@linkColor:             @blueDark;
-@linkColorHover:        darken(@linkColor, 15%);
+@linkColor:             #619dbd;
+@linkColorHover:        @blue;
 
 
 // Typography
 // -------------------------
-@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@sansFontFamily:        Arial, Verdana, "Helvetica Neue", sans-serif;
+@serifFontFamily:       Times, "Times New Roman", Georgia, serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
 @baseFontSize:          14px;
 @baseFontFamily:        @sansFontFamily;
-@baseLineHeight:        20px;
+@baseLineHeight:        18px;
 @altFontFamily:         @serifFontFamily;
 
 @headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
-@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsFontWeight:    normal;    // instead of browser default, bold
 @headingsColor:         inherit; // empty to use BS default, @textColor
 
 
@@ -88,11 +88,11 @@
 @btnBackgroundHighlight:            darken(@white, 10%);
 @btnBorder:                         #ccc;
 
-@btnPrimaryBackground:              @linkColor;
-@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
+@btnPrimaryBackground:              @blue;
+@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 15%);
 
 @btnInfoBackground:                 #5bc0de;
-@btnInfoBackgroundHighlight:        #2f96b4;
+@btnInfoBackgroundHighlight:        #00abd9; //#2f96b4;
 
 @btnSuccessBackground:              #62c462;
 @btnSuccessBackgroundHighlight:     #51a351;
@@ -181,21 +181,21 @@
 @navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
 
 @navbarHeight:                    40px;
-@navbarBackground:                #d5dfe3;
-@navbarBackgroundHighlight:       lighten(@navbarBackground, 10%);
-@navbarBorder:                    darken(@navbarBackground, 5%);
+@navbarBackground:                darken(@orange, 10%);
+@navbarBackgroundHighlight:       @orange;
+@navbarBorder:                    @orange;
 
-@navbarText:                      #777;
-@navbarLinkColor:                 #777;
-@navbarLinkColorHover:            @grayDark;
-@navbarLinkColorActive:           @gray;
-@navbarLinkBackgroundHover:       transparent;
-@navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
+@navbarText:                      @white;
+@navbarLinkColor:                 @white;
+@navbarLinkColorHover:            @red;
+@navbarLinkColorActive:           @red;
+@navbarLinkBackgroundHover:       lighten(@navbarBackground, 10%);
+@navbarLinkBackgroundActive:      lighten(@navbarBackground, 10%);
 
 @navbarBrandColor:                @navbarLinkColor;
 
 // Inverted navbar
-@navbarInverseBackground:                @blueDark;
+@navbarInverseBackground:                #111111;
 @navbarInverseBackgroundHighlight:       #222222;
 @navbarInverseBorder:                    #252525;
 
@@ -223,7 +223,7 @@
 
 // Hero unit
 // -------------------------
-@heroUnitBackground:              @grayLighter;
+@heroUnitBackground:              transparent;
 @heroUnitHeadingColor:            inherit;
 @heroUnitLeadColor:               inherit;
 

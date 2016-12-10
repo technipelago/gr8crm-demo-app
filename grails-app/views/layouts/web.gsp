@@ -24,9 +24,9 @@
                 alert('Requested URL not found.');
             } else if (xhr.status == 500) {
                 alert('Error.\nInternal server error.');
-            } else if (errStatus == 'parsererror') {
+            } else if (exception == 'parsererror') {
                 alert('Error.\nParsing JSON Request failed.');
-            } else if (errStatus == 'timeout') {
+            } else if (exception == 'timeout') {
                 alert('Request timed out.\nPlease try later');
             } else {
                 alert('Unknown Error.');
